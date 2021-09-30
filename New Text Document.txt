@@ -1,0 +1,183 @@
+SQL> create table Employee1(
+  2  E_id int,
+  3  E_name varchar2(10),
+  4  E_age varchar2(10),
+  5  E_salary int,
+  6  E_gen varchar2(10),
+  7  E_dept varchar2(10)
+  8  );
+
+Table created.
+
+SQL> insert into Employee1 values(1,'Khushi',17,10000,'Female','CSE');
+
+1 row created.
+
+SQL> insert into Employee1 values(2,'Kamla',37,20000,'Female','EE');
+
+1 row created.
+
+SQL> insert into Employee1 values(3,'Gautam',27,25000,'Male','ME');
+
+1 row created.
+
+SQL> insert into Employee1 values(4,'Vijay',42,75000,'Male','Civil');
+
+1 row created.
+
+SQL> insert into Employee1 values(5,'Anita',52,50000,'Female','CSE');
+
+1 row created.
+
+SQL> insert into Employee1 values(6,'Monika',49,42000,'Female','Civil');
+
+1 row created.
+
+SQL> desc Employee1;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ E_ID                                               NUMBER(38)
+ E_NAME                                             VARCHAR2(10)
+ E_AGE                                              VARCHAR2(10)
+ E_SALARY                                           NUMBER(38)
+ E_GEN                                              VARCHAR2(10)
+ E_DEPT                                             VARCHAR2(10)
+
+SQL> select * from Employee1;
+
+      E_ID E_NAME     E_AGE        E_SALARY E_GEN      E_DEPT
+---------- ---------- ---------- ---------- ---------- ----------
+         1 Khushi     17              10000 Female     CSE
+         2 Kamla      37              20000 Female     EE
+         3 Gautam     27              25000 Male       ME
+         4 Vijay      42              75000 Male       Civil
+         5 Anita      52              50000 Female     CSE
+         6 Monika     49              42000 Female     Civil
+
+6 rows selected.
+
+
+SQL> select * from Employee1 where E_gen='Female' and E_age<30;
+
+      E_ID E_NAME     E_AGE        E_SALARY E_GEN      E_DEPT
+---------- ---------- ---------- ---------- ---------- ----------
+         1 Khushi     17              10000 Female     CSE
+
+SQL> select * from Employee1 where E_dept='Civil' and E_salary>40000;
+
+      E_ID E_NAME     E_AGE        E_SALARY E_GEN      E_DEPT
+---------- ---------- ---------- ---------- ---------- ----------
+         4 Vijay      42              75000 Male       Civil
+         6 Monika     49              42000 Female     Civil
+
+SQL> select * from Employee1 where E_dept='CSE' or E_salary>=25000;
+
+      E_ID E_NAME     E_AGE        E_SALARY E_GEN      E_DEPT
+---------- ---------- ---------- ---------- ---------- ----------
+         1 Khushi     17              10000 Female     CSE
+         3 Gautam     27              25000 Male       ME
+         4 Vijay      42              75000 Male       Civil
+         5 Anita      52              50000 Female     CSE
+         6 Monika     49              42000 Female     Civil
+
+SQL> select * from Employee1 where E_gen='Female' or E_age>30;
+
+      E_ID E_NAME     E_AGE        E_SALARY E_GEN      E_DEPT
+---------- ---------- ---------- ---------- ---------- ----------
+         1 Khushi     17              10000 Female     CSE
+         2 Kamla      37              20000 Female     EE
+         4 Vijay      42              75000 Male       Civil
+         5 Anita      52              50000 Female     CSE
+         6 Monika     49              42000 Female     Civil
+
+SQL> select * from Employee1 where E_gen<>'Female';
+
+      E_ID E_NAME     E_AGE        E_SALARY E_GEN      E_DEPT
+---------- ---------- ---------- ---------- ---------- ----------
+         3 Gautam     27              25000 Male       ME
+         4 Vijay      42              75000 Male       Civil
+
+SQL> select * from Employee1 where E_name like 'K%';
+
+      E_ID E_NAME     E_AGE        E_SALARY E_GEN      E_DEPT
+---------- ---------- ---------- ---------- ---------- ----------
+         1 Khushi     17              10000 Female     CSE
+         2 Kamla      37              20000 Female     EE
+
+SQL> select * from Employee1 where E_age>=20 and E_age<=30;
+
+      E_ID E_NAME     E_AGE        E_SALARY E_GEN      E_DEPT
+---------- ---------- ---------- ---------- ---------- ----------
+         3 Gautam     27              25000 Male       ME
+
+SQL> select * from Employee1 where E_salary>=20000 and E_salary<=50000;
+
+      E_ID E_NAME     E_AGE        E_SALARY E_GEN      E_DEPT
+---------- ---------- ---------- ---------- ---------- ----------
+         2 Kamla      37              20000 Female     EE
+         3 Gautam     27              25000 Male       ME
+         5 Anita      52              50000 Female     CSE
+         6 Monika     49              42000 Female     Civil
+
+
+SQL> select * from Employee1 where E_age=(select min(E_age) from Employee1);
+
+      E_ID E_NAME     E_AGE        E_SALARY E_GEN      E_DEPT
+---------- ---------- ---------- ---------- ---------- ----------
+         1 Khushi     17              10000 Female     CSE
+
+SQL> select * from Employee1 where E_salary=(select min(E_salary) from Employee1);
+
+      E_ID E_NAME     E_AGE        E_SALARY E_GEN      E_DEPT
+---------- ---------- ---------- ---------- ---------- ----------
+         1 Khushi     17              10000 Female     CSE
+
+SQL> select * from Employee1 where E_age=(select max(E_age) from Employee1);
+
+      E_ID E_NAME     E_AGE        E_SALARY E_GEN      E_DEPT
+---------- ---------- ---------- ---------- ---------- ----------
+         5 Anita      52              50000 Female     CSE
+
+SQL> select * from Employee1 where E_salary=(select max(E_salary) from Employee1);
+
+      E_ID E_NAME     E_AGE        E_SALARY E_GEN      E_DEPT
+---------- ---------- ---------- ---------- ---------- ----------
+         4 Vijay      42              75000 Male       Civil
+
+SQL> select count(*) from Employee1 where E_gen='Female';
+
+  COUNT(*)
+----------
+         4
+
+SQL> select count(*) from Employee1;
+
+  COUNT(*)
+----------
+         6
+
+SQL> select sum(E_salary) from Employee1;
+
+SUM(E_SALARY)
+-------------
+       222000
+
+SQL> select sum(E_age) from Employee1 where E_gen='Female';
+
+SUM(E_AGE)
+----------
+       155
+
+SQL> select avg(E_age) from Employee1;
+
+AVG(E_AGE)
+----------
+37.3333333
+
+SQL> select avg(E_age) from Employee1 where E_gen='Female';
+
+AVG(E_AGE)
+----------
+     38.75
+
+SQL>
